@@ -23,6 +23,11 @@ concept_embs = None
 relation_embs = None
 
 
+N_RELATIONS = len(merged_relations)
+RELATED_TO = merged_relations.index("relatedto")
+INV_RELATED_TO = RELATED_TO + len(merged_relations)
+
+
 def load_resources(cpnet_vocab_path):
     global concept2id, id2concept, relation2id, id2relation
 
@@ -57,7 +62,7 @@ def get_edge(src_concept, tgt_concept):
     return res
 
 
-def find_paths_qa_concept_pair(source: str, target: str, ifprint=False):
+def find_paths_qa_concept_pair(source: str, target: str, ifprint=False, min_path_length=2, max_path_length=5, max_num_paths=100):
     """
     find paths for a (question concept, answer concept) pair
     source and target is text
@@ -88,10 +93,10 @@ def find_paths_qa_concept_pair(source: str, target: str, ifprint=False):
     all_path = []
     try:
         for p in nx.shortest_simple_paths(cpnet_simple, source=s, target=t):
-            if len(p) > 5 or len(all_path) >= 100:  # top 100 paths
+            if len(p) > max_path_length or len(all_path) >= max_num_paths:  # top 100 paths
                 break
-            if len(p) >= 2:  # skip paths of length 1
-                all_path.append(p)
+            if len(p) >= min_path_length:  # skip paths of length 1
+                 all_path.append(p)
     except nx.exception.NetworkXNoPath:
         pass
 
@@ -127,7 +132,10 @@ def find_paths_from_adj_per_inst(input):
     adj = adj.toarray()
     ij, k = adj.shape
 
-    adj = np.any(adj.reshape(ij // k, k, k), axis=0)
+    if k != 0:
+        adj = np.any(adj.reshape(ij // k, k, k), axis=0)
+    else:
+        adj = np.zeros((0,0))
     simple_schema_graph = nx.from_numpy_matrix(adj)
     mapping = {i: int(c) for (i, c) in enumerate(concepts)}
     simple_schema_graph = nx.relabel_nodes(simple_schema_graph, mapping)
@@ -169,11 +177,11 @@ def find_paths_from_adj_per_inst(input):
 
 
 def find_paths_qa_pair(qa_pair):
-    acs, qcs = qa_pair
+    acs, qcs, min_path_length, max_path_length, max_num_paths = qa_pair
     pfr_qa = []
     for ac in acs:
         for qc in qcs:
-            pf_res = find_paths_qa_concept_pair(qc, ac)
+            pf_res = find_paths_qa_concept_pair(qc, ac, min_path_length=min_path_length, max_path_length=max_path_length, max_num_paths=max_num_paths)
             pfr_qa.append({"ac": ac, "qc": qc, "pf_res": pf_res})
     return pfr_qa
 
@@ -202,18 +210,18 @@ def score_triples(concept_id, relation_id, debug=False):
         embs = []
         l_flag = []
 
-        if 0 in relation_id[i] and 17 not in relation_id[i]:
-            relation_id[i].append(17)
-        elif 17 in relation_id[i] and 0 not in relation_id[i]:
+        if 0 in relation_id[i] and N_RELATIONS not in relation_id[i]:
+            relation_id[i].append(N_RELATIONS)
+        elif N_RELATIONS in relation_id[i] and 0 not in relation_id[i]:
             relation_id[i].append(0)
-        if 15 in relation_id[i] and 32 not in relation_id[i]:
-            relation_id[i].append(32)
-        elif 32 in relation_id[i] and 15 not in relation_id[i]:
-            relation_id[i].append(15)
+        if RELATED_TO in relation_id[i] and INV_RELATED_TO not in relation_id[i]:
+            relation_id[i].append(INV_RELATED_TO)
+        elif INV_RELATED_TO in relation_id[i] and RELATED_TO not in relation_id[i]:
+            relation_id[i].append(RELATED_TO)
 
         for j in range(len(relation_id[i])):
-            if relation_id[i][j] >= 17:
-                embs.append(relation_embs[relation_id[i][j] - 17])
+            if relation_id[i][j] >= N_RELATIONS:
+                embs.append(relation_embs[relation_id[i][j] - N_RELATIONS])
                 l_flag.append(1)
             else:
                 embs.append(relation_embs[relation_id[i][j]])
@@ -236,9 +244,9 @@ def score_triples(concept_id, relation_id, debug=False):
             h = id2concept[concept_id[i]]
             to_print += h + "\t"
             for rel in relation_id[i]:
-                if rel >= 17:
+                if rel >= N_RELATIONS:
                     # 'r-' means reverse
-                    to_print += ("r-" + id2relation[rel - 17] + "/  ")
+                    to_print += ("r-" + id2relation[rel - N_RELATIONS] + "/  ")
                 else:
                     to_print += id2relation[rel] + "/  "
         to_print += id2concept[concept_id[-1]]
@@ -255,7 +263,7 @@ def score_qa_pairs(qa_pairs):
         if statement_paths is not None:
             path_scores = []
             for path in statement_paths:
-                assert len(path["path"]) > 1
+                #assert len(path["path"]) > 1
                 score = score_triples(concept_id=path["path"], relation_id=path["rel"])
                 path_scores.append(score)
             statement_scores.append(path_scores)
@@ -294,7 +302,7 @@ def find_relational_paths_from_paths_per_inst(path_dic):
 #                     functions below this line will be called by preprocess.py                     #
 #####################################################################################################
 
-def find_paths(grounded_path, cpnet_vocab_path, cpnet_graph_path, output_path, num_processes=1, random_state=0):
+def find_paths(grounded_path, cpnet_vocab_path, cpnet_graph_path, output_path, num_processes=1, random_state=0, min_path_length=2, max_path_length=5, max_num_paths=100):
     print(f'generating paths for {grounded_path}...')
     random.seed(random_state)
     np.random.seed(random_state)
@@ -305,11 +313,11 @@ def find_paths(grounded_path, cpnet_vocab_path, cpnet_graph_path, output_path, n
     if cpnet is None or cpnet_simple is None:
         load_cpnet(cpnet_graph_path)
 
-    with open(grounded_path, 'r', encoding='utf-8') as fin:
+    with open(grounded_path, 'r') as fin:
         data = [json.loads(line) for line in fin]
-    data = [[item["ac"], item["qc"]] for item in data]
+    data = [[item["ac"], item["qc"], min_path_length, max_path_length, max_num_paths] for item in data]
 
-    with Pool(num_processes) as p, open(output_path, 'w', encoding='utf-8') as fout:
+    with Pool(num_processes) as p, open(output_path, 'w') as fout:
         for pfr_qa in tqdm(p.imap(find_paths_qa_pair, data), total=len(data)):
             fout.write(json.dumps(pfr_qa) + '\n')
 
@@ -342,7 +350,7 @@ def generate_path_and_graph_from_adj(adj_path, cpnet_graph_path, output_path, gr
 
 
 def score_paths(raw_paths_path, concept_emb_path, rel_emb_path, cpnet_vocab_path, output_path, num_processes=1, method='triple_cls'):
-    print(f'scoring paths for {raw_paths_path}...')
+    print(f'scoring paths for {raw_paths_path} with', concept_emb_path, rel_emb_path)
     global concept2id, id2concept, relation2id, id2relation
     if any(x is None for x in [concept2id, id2concept, relation2id, id2relation]):
         load_resources(cpnet_vocab_path)
@@ -357,10 +365,10 @@ def score_paths(raw_paths_path, concept_emb_path, rel_emb_path, cpnet_vocab_path
         raise NotImplementedError()
 
     all_scores = []
-    with open(raw_paths_path, 'r', encoding='utf-8') as fin:
+    with open(raw_paths_path, 'r') as fin:
         data = [json.loads(line) for line in fin]
 
-    with Pool(num_processes) as p, open(output_path, 'w', encoding='utf-8') as fout:
+    with Pool(num_processes) as p, open(output_path, 'w') as fout:
         for statement_scores in tqdm(p.imap(score_qa_pairs, data), total=len(data)):
             fout.write(json.dumps(statement_scores) + '\n')
 
@@ -373,9 +381,9 @@ def prune_paths(raw_paths_path, path_scores_path, output_path, threshold, verbos
     ori_len = 0
     pruned_len = 0
     nrow = sum(1 for _ in open(raw_paths_path, 'r'))
-    with open(raw_paths_path, 'r', encoding='utf-8') as fin_raw, \
-            open(path_scores_path, 'r', encoding='utf-8') as fin_score, \
-            open(output_path, 'w', encoding='utf-8') as fout:
+    with open(raw_paths_path, 'r') as fin_raw, \
+            open(path_scores_path, 'r') as fin_score, \
+            open(output_path, 'w') as fout:
         for line_raw, line_score in tqdm(zip(fin_raw, fin_score), total=nrow):
             qa_pairs = json.loads(line_raw)
             qa_pairs_scores = json.loads(line_score)
@@ -390,7 +398,11 @@ def prune_paths(raw_paths_path, path_scores_path, output_path, threshold, verbos
             fout.write(json.dumps(qa_pairs) + '\n')
 
     if verbose:
-        print("ori_len: {}   pruned_len: {}   keep_rate: {:.4f}".format(ori_len, pruned_len, pruned_len / ori_len))
+        if ori_len != 0:
+            print("ori_len: {}   pruned_len: {}   keep_rate: {:.4f}".format(ori_len, pruned_len, pruned_len / ori_len))
+        else:
+            print("ori_len: {}   pruned_len: {}   keep_rate: {:.4f}".format(ori_len, pruned_len, pruned_len))
+
 
     print(f'pruned paths saved to {output_path}')
     print()
@@ -398,9 +410,9 @@ def prune_paths(raw_paths_path, path_scores_path, output_path, threshold, verbos
 
 def find_relational_paths_from_paths(pruned_paths_path, output_path, num_processes):
     print(f'extracting relational paths from {pruned_paths_path}...')
-    with open(pruned_paths_path, 'r', encoding='utf-8') as fin:
+    with open(pruned_paths_path, 'r') as fin:
         path_data = [json.loads(line) for line in fin]
-    with Pool(num_processes) as p, open(output_path, 'w', encoding='utf-8') as fout:
+    with Pool(num_processes) as p, open(output_path, 'w') as fout:
         for pfr_qa in tqdm(p.imap(find_relational_paths_from_paths_per_inst, path_data), total=len(path_data)):
             fout.write(json.dumps(pfr_qa) + '\n')
     print(f'paths saved to {output_path}')

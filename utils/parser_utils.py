@@ -9,6 +9,13 @@ ENCODER_DEFAULT_LR = {
         'bert-large-uncased': 2e-5,
         'roberta-large': 1e-5,
     },
+    'elementary': {
+        'lstm': 3e-4,
+        'openai-gpt': 1e-4,
+        'bert-base-uncased': 3e-5,
+        'bert-large-uncased': 2e-5,
+        'roberta-large': 1e-5,
+    },
     'obqa': {
         'lstm': 3e-4,
         'openai-gpt': 3e-5,
@@ -18,12 +25,13 @@ ENCODER_DEFAULT_LR = {
     }
 }
 
-DATASET_LIST = ['csqa', 'obqa', 'socialiqa']
+DATASET_LIST = ['csqa', 'obqa', 'socialiqa', "elementary"]
 
 DATASET_SETTING = {
     'csqa': 'inhouse',
     'obqa': 'official',
     'socialiqa': 'official',
+    "elementary": "official"
 }
 
 DATASET_NO_TEST = ['socialiqa']
@@ -101,6 +109,10 @@ def add_additional_arguments(parser):
     parser.add_argument('--cuda', default=True, type=bool_flag, nargs='?', const=True, help='use GPU')
     parser.add_argument('--seed', default=0, type=int, help='random seed')
     parser.add_argument('--debug', default=False, type=bool_flag, nargs='?', const=True, help='run in debug mode')
+    parser.add_argument('--kb', type=str, default="conceptnet", help='Name of the knowledge base')
+    parser.add_argument('--min_path_length', type=int, default=2, help="The minimum length of a path")
+    parser.add_argument('--max_path_length', type=int, default=5, help="The maximum length of a path")
+    parser.add_argument('--max_num_paths', type=int, default=100, help="The maximum number of paths to consider")
     args, _ = parser.parse_known_args()
     if args.debug:
         parser.set_defaults(batch_size=1, log_interval=1, eval_interval=5)

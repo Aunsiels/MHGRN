@@ -20,16 +20,21 @@ relation_groups = [
     'createdby',
     'desires',
     'antonym/distinctfrom',
+    'hasaspect',
     'hascontext',
     'hasproperty',
     'hassubevent/hasfirstsubevent/haslastsubevent/hasprerequisite/entails/mannerof',
+    'hassubgroup',
     'isa/instanceof/definedas',
     'madeof',
     'notcapableof',
+    'nothasproperty',
+    'notisa',
     'notdesires',
+    'objectuse',
     'partof/*hasa',
     'relatedto/similarto/synonym',
-    'usedfor',
+    'usedfor/objectuse',
     'receivesaction',
 ]
 
@@ -41,12 +46,16 @@ merged_relations = [
     'createdby',
     'isa',
     'desires',
+    'hasaspect',
     'hassubevent',
     'partof',
     'hascontext',
     'hasproperty',
+    'hassubgroup',
     'madeof',
     'notcapableof',
+    'nothasproperty',
+    'notisa',
     'notdesires',
     'receivesaction',
     'relatedto',
@@ -61,12 +70,16 @@ relation_text = [
     'is created by',
     'is a kind of',
     'desires',
+    'looks like',
     'has subevent',
     'is part of',
     'has context',
     'has property',
+    'contains',
     'is made of',
     'is not capable of',
+    'does not have property',
+    'is not a kind of',
     'does not desires',
     'is',
     'is related to',
@@ -117,7 +130,7 @@ def extract_english(conceptnet_path, output_csv_path, output_vocab_path):
                 """
                 Some preprocessing:
                     - Remove part-of-speech encoding.
-                    - Split("/")[-1] to trim the "/c/en/" and just get the entity name, convert all to 
+                    - Split("/")[-1] to trim the "/c/en/" and just get the entity name, convert all to
                     - Lowercase for uniformity.
                 """
                 rel = toks[1].split("/")[-1].lower()
@@ -144,7 +157,7 @@ def extract_english(conceptnet_path, output_csv_path, output_vocab_path):
                         concepts_seen.add(w)
                         cpnet_vocab.append(w)
 
-    with open(output_vocab_path, 'w', encoding='utf-8') as fout:
+    with open(output_vocab_path, 'w') as fout:
         for word in cpnet_vocab:
             fout.write(word + '\n')
 

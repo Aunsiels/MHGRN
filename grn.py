@@ -1,6 +1,6 @@
 import random
 
-from transformers import (ConstantLRSchedule, WarmupLinearSchedule, WarmupConstantSchedule)
+from transformers import (get_constant_schedule, get_linear_schedule_with_warmup, get_constant_schedule_with_warmup)
 
 from modeling.modeling_grn import *
 from utils.optimization_utils import OPTIMIZER_CLASSES
@@ -35,14 +35,14 @@ def main():
     parser.add_argument('--save_dir', default=f'./saved_models/grn/', help='model output directory')
 
     # data
-    parser.add_argument('--cpnet_vocab_path', default='./data/cpnet/concept.txt')
+    parser.add_argument('--cpnet_vocab_path', default=f'./data/{args.kb}/concept.txt')
     parser.add_argument('--num_relation', default=34, type=int, help='number of relations')
-    parser.add_argument('--train_adj', default=f'./data/{args.dataset}/graph/train.graph.adj.pk')
-    parser.add_argument('--dev_adj', default=f'./data/{args.dataset}/graph/dev.graph.adj.pk')
-    parser.add_argument('--test_adj', default=f'./data/{args.dataset}/graph/test.graph.adj.pk')
-    parser.add_argument('--train_embs', default=f'./data/{args.dataset}/features/train.{get_node_feature_encoder(args.encoder)}.features.pk')
-    parser.add_argument('--dev_embs', default=f'./data/{args.dataset}/features/dev.{get_node_feature_encoder(args.encoder)}.features.pk')
-    parser.add_argument('--test_embs', default=f'./data/{args.dataset}/features/test.{get_node_feature_encoder(args.encoder)}.features.pk')
+    parser.add_argument('--train_adj', default=f'./data/{args.dataset}_{args.kb}/graph_{args.min_path_length}_{args.max_path_length}_{args.max_num_paths}/train.graph.adj.pk')
+    parser.add_argument('--dev_adj', default=f'./data/{args.dataset}_{args.kb}/graph_{args.min_path_length}_{args.max_path_length}_{args.max_num_paths}/dev.graph.adj.pk')
+    parser.add_argument('--test_adj', default=f'./data/{args.dataset}_{args.kb}/graph_{args.min_path_length}_{args.max_path_length}_{args.max_num_paths}/test.graph.adj.pk')
+    parser.add_argument('--train_embs', default=f'./data/{args.dataset}_{args.kb}/features/train.{get_node_feature_encoder(args.encoder)}.features.pk')
+    parser.add_argument('--dev_embs', default=f'./data/{args.dataset}_{args.kb}/features/dev.{get_node_feature_encoder(args.encoder)}.features.pk')
+    parser.add_argument('--test_embs', default=f'./data/{args.dataset}_{args.kb}/features/test.{get_node_feature_encoder(args.encoder)}.features.pk')
 
     # model architecture
     parser.add_argument('-k', '--k', default=2, type=int, help='perform k-hop message passing at each layer')
@@ -115,7 +115,7 @@ def train(args):
     log_path = os.path.join(args.save_dir, 'log.csv')
     export_config(args, config_path)
     check_path(model_path)
-    with open(log_path, 'w', encoding='utf-8') as fout:
+    with open(log_path, 'w') as fout:
         fout.write('step,train_acc,dev_acc\n')
 
     ###################################################################################################
@@ -126,6 +126,7 @@ def train(args):
         use_contextualized = True
     else:
         use_contextualized = False
+    print("Embeddings", args.ent_emb_paths)
     cp_emb = [np.load(path) for path in args.ent_emb_paths]
     cp_emb = torch.tensor(np.concatenate(cp_emb, 1), dtype=torch.float)
 
@@ -180,12 +181,12 @@ def train(args):
     optimizer = OPTIMIZER_CLASSES[args.optim](grouped_parameters)
 
     if args.lr_schedule == 'fixed':
-        scheduler = ConstantLRSchedule(optimizer)
+        scheduler = get_constant_schedule(optimizer)
     elif args.lr_schedule == 'warmup_constant':
-        scheduler = WarmupConstantSchedule(optimizer, warmup_steps=args.warmup_steps)
+        scheduler = get_constant_schedule_with_warmup(optimizer, num_warmup_steps=args.warmup_steps)
     elif args.lr_schedule == 'warmup_linear':
         max_steps = int(args.n_epochs * (dataset.train_size() / args.batch_size))
-        scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=max_steps)
+        scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=args.warmup_steps, num_training_steps=max_steps)
 
     print('parameters:')
     for name, param in model.decoder.named_parameters():
@@ -272,6 +273,7 @@ def train(args):
                 break
     except (KeyboardInterrupt, RuntimeError) as e:
         print(e)
+        raise
 
     print()
     print('training ends in {} steps'.format(global_step))
@@ -375,7 +377,7 @@ def decode(args):
                                                                                '^' if j == pred else ''),
                                                          path_ids_to_text(path)))
         output_path = os.path.join(args.save_dir, filename)
-        with open(output_path, 'w', encoding='utf-8') as fout:
+        with open(output_path, 'w') as fout:
             for line in outputs:
                 fout.write(line + '\n')
         print(f'outputs saved to {output_path}')

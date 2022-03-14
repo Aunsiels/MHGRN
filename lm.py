@@ -3,7 +3,7 @@ import random
 import numpy as np
 import torch.nn.functional as F
 from tqdm import tqdm
-from transformers import WarmupLinearSchedule, WarmupConstantSchedule, ConstantLRSchedule
+from transformers import (get_constant_schedule, get_linear_schedule_with_warmup, get_constant_schedule_with_warmup)
 
 from modeling.modeling_lm import *
 from utils.optimization_utils import OPTIMIZER_CLASSES
@@ -102,12 +102,12 @@ def train(args):
     optimizer = OPTIMIZER_CLASSES[args.optim](grouped_parameters)
 
     if args.lr_schedule == 'fixed':
-        scheduler = ConstantLRSchedule(optimizer)
+        scheduler = get_constant_schedule(optimizer)
     elif args.lr_schedule == 'warmup_constant':
-        scheduler = WarmupConstantSchedule(optimizer, warmup_steps=args.warmup_steps)
+        scheduler = get_constant_schedule_with_warmup(optimizer, num_warmup_steps=args.warmup_steps)
     elif args.lr_schedule == 'warmup_linear':
         max_steps = int(args.n_epochs * (dataset.train_size() / args.batch_size))
-        scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=max_steps)
+        scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=args.warmup_steps, num_training_steps=max_steps)
 
     if args.loss == 'margin_rank':
         loss_func = nn.MarginRankingLoss(margin=0.1, reduction='mean')
@@ -255,7 +255,7 @@ def pred(args):  # Note: pred mode ALWAYS uses the official split
     print(f'| dataset: {old_args.dataset} | save_dir: {args.save_dir} |')
 
     for output_path, data_loader in [(dev_pred_path, dataset.dev())] + ([(test_pred_path, dataset.test())] if dataset.test_size() > 0 else []):
-        with torch.no_grad(), open(output_path, 'w', encoding='utf-8') as fout:
+        with torch.no_grad(), open(output_path, 'w') as fout:
             for qids, labels, *input_data in tqdm(data_loader):
                 logits = model(*input_data)
                 for qid, pred_label in zip(qids, logits.argmax(1)):

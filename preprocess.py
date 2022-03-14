@@ -20,23 +20,6 @@ input_paths = {
         'dev': './data/csqa/dev_rand_split.jsonl',
         'test': './data/csqa/test_rand_split_no_answers.jsonl',
     },
-    'scitail': {
-        'train': './data/scitail/SciTailV1.1/predictor_format/scitail_1.0_structure_train.jsonl',
-        'dev': './data/scitail/SciTailV1.1/predictor_format/scitail_1.0_structure_dev.jsonl',
-        'test': './data/scitail/SciTailV1.1/predictor_format/scitail_1.0_structure_test.jsonl',
-    },
-    'phys': {
-        'train': './data/phys/physicaliqa-train-dev/train.jsonl',
-        'dev': './data/phys/physicaliqa-train-dev/dev.jsonl',
-        'train-label': './data/phys/physicaliqa-train-dev/train-labels.lst',
-        'dev-label': './data/phys/physicaliqa-train-dev/dev-labels.lst',
-    },
-    'socialiqa': {
-        'train': './data/socialiqa/socialiqa-train-dev/train.jsonl',
-        'dev': './data/socialiqa/socialiqa-train-dev/dev.jsonl',
-        'train-label': './data/socialiqa/socialiqa-train-dev/train-labels.lst',
-        'dev-label': './data/socialiqa/socialiqa-train-dev/dev-labels.lst',
-    },
     'obqa': {
         'train': './data/obqa/OpenBookQA-V1-Sep2018/Data/Main/train.jsonl',
         'dev': './data/obqa/OpenBookQA-V1-Sep2018/Data/Main/dev.jsonl',
@@ -127,128 +110,6 @@ output_paths = {
             'test': './data/csqa/triples/test.triples.pk',
         },
     },
-    'scitail': {
-        'statement': {
-            'train': './data/scitail/statement/train.statement.jsonl',
-            'dev': './data/scitail/statement/dev.statement.jsonl',
-            'test': './data/scitail/statement/test.statement.jsonl',
-            'train-fairseq': './data/scitail/fairseq/official/train.jsonl',
-            'dev-fairseq': './data/scitail/fairseq/official/valid.jsonl',
-            'test-fairseq': './data/scitail/fairseq/official/test.jsonl',
-            'vocab': './data/scitail/statement/vocab.json',
-        },
-        'tokenized': {
-            'train': './data/scitail/tokenized/train.tokenized.txt',
-            'dev': './data/scitail/tokenized/dev.tokenized.txt',
-            'test': './data/scitail/tokenized/test.tokenized.txt',
-        },
-        'grounded': {
-            'train': './data/scitail/grounded/train.grounded.jsonl',
-            'dev': './data/scitail/grounded/dev.grounded.jsonl',
-            'test': './data/scitail/grounded/test.grounded.jsonl',
-        },
-        'paths': {
-            'raw-train': './data/scitail/paths/train.paths.raw.jsonl',
-            'raw-dev': './data/scitail/paths/dev.paths.raw.jsonl',
-            'raw-test': './data/scitail/paths/test.paths.raw.jsonl',
-            'scores-train': './data/scitail/paths/train.paths.scores.jsonl',
-            'scores-dev': './data/scitail/paths/dev.paths.scores.jsonl',
-            'scores-test': './data/scitail/paths/test.paths.scores.jsonl',
-            'pruned-train': './data/scitail/paths/train.paths.pruned.jsonl',
-            'pruned-dev': './data/scitail/paths/dev.paths.pruned.jsonl',
-            'pruned-test': './data/scitail/paths/test.paths.pruned.jsonl',
-        },
-        'graph': {
-            'train': './data/scitail/graph/train.graph.jsonl',
-            'dev': './data/scitail/graph/dev.graph.jsonl',
-            'test': './data/scitail/graph/test.graph.jsonl',
-            'adj-train': './data/scitail/graph/train.graph.adj.pk',
-            'adj-dev': './data/scitail/graph/dev.graph.adj.pk',
-            'adj-test': './data/scitail/graph/test.graph.adj.pk',
-        },
-        'triple': {
-            'train': './data/scitail/triples/train.triples.pk',
-            'dev': './data/scitail/triples/dev.triples.pk',
-            'test': './data/scitail/triples/test.triples.pk',
-        },
-    },
-    'phys': {
-        'statement': {
-            'train': './data/phys/statement/train.statement.jsonl',
-            'dev': './data/phys/statement/dev.statement.jsonl',
-            'train-fairseq': './data/phys/fairseq/official/train.jsonl',
-            'dev-fairseq': './data/phys/fairseq/official/valid.jsonl',
-            'vocab': './data/phys/statement/vocab.json',
-        },
-        'tokenized': {
-            'train': './data/phys/tokenized/train.tokenized.txt',
-            'dev': './data/phys/tokenized/dev.tokenized.txt',
-        },
-        'grounded': {
-            'train': './data/phys/grounded/train.grounded.jsonl',
-            'dev': './data/phys/grounded/dev.grounded.jsonl',
-        },
-        'paths': {
-            'raw-train': './data/phys/paths/train.paths.raw.jsonl',
-            'raw-dev': './data/phys/paths/dev.paths.raw.jsonl',
-            'scores-train': './data/phys/paths/train.paths.scores.jsonl',
-            'scores-dev': './data/phys/paths/dev.paths.scores.jsonl',
-            'pruned-train': './data/phys/paths/train.paths.pruned.jsonl',
-            'pruned-dev': './data/phys/paths/dev.paths.pruned.jsonl',
-        },
-        'graph': {
-            'train': './data/phys/graph/train.graph.jsonl',
-            'dev': './data/phys/graph/dev.graph.jsonl',
-            'adj-train': './data/phys/graph/train.graph.adj.pk',
-            'adj-dev': './data/phys/graph/dev.graph.adj.pk',
-        },
-        'triple': {
-            'train': './data/phys/triples/train.triples.pk',
-            'dev': './data/phys/triples/dev.triples.pk',
-            'test': './data/phys/triples/test.triples.pk',
-        },
-    },
-    'socialiqa': {
-        'statement': {
-            'train': './data/socialiqa/statement/train.statement.jsonl',
-            'dev': './data/socialiqa/statement/dev.statement.jsonl',
-            'train-fairseq': './data/socialiqa/fairseq/official/train.jsonl',
-            'dev-fairseq': './data/socialiqa/fairseq/official/valid.jsonl',
-            'vocab': './data/socialiqa/statement/vocab.json',
-        },
-        'tokenized': {
-            'train': './data/socialiqa/tokenized/train.tokenized.txt',
-            'dev': './data/socialiqa/tokenized/dev.tokenized.txt',
-        },
-        'grounded': {
-            'train': './data/socialiqa/grounded/train.grounded.jsonl',
-            'dev': './data/socialiqa/grounded/dev.grounded.jsonl',
-        },
-        'paths': {
-            'raw-train': './data/socialiqa/paths/train.paths.raw.jsonl',
-            'raw-dev': './data/socialiqa/paths/dev.paths.raw.jsonl',
-            'scores-train': './data/socialiqa/paths/train.paths.scores.jsonl',
-            'scores-dev': './data/socialiqa/paths/dev.paths.scores.jsonl',
-            'pruned-train': './data/socialiqa/paths/train.paths.pruned.jsonl',
-            'pruned-dev': './data/socialiqa/paths/dev.paths.pruned.jsonl',
-            'adj-train': './data/socialiqa/paths/train.paths.adj.jsonl',
-            'adj-dev': './data/socialiqa/paths/dev.paths.adj.jsonl',
-            'adj-test': './data/socialiqa/paths/test.paths.adj.jsonl',
-        },
-        'graph': {
-            'train': './data/socialiqa/graph/train.graph.jsonl',
-            'dev': './data/socialiqa/graph/dev.graph.jsonl',
-            'adj-train': './data/socialiqa/graph/train.graph.adj.pk',
-            'adj-dev': './data/socialiqa/graph/dev.graph.adj.pk',
-            'nxg-from-adj-train': './data/socialiqa/graph/train.graph.adj.jsonl',
-            'nxg-from-adj-dev': './data/socialiqa/graph/dev.graph.adj.jsonl',
-        },
-        'triple': {
-            'train': './data/socialiqa/triples/train.triples.pk',
-            'dev': './data/socialiqa/triples/dev.triples.pk',
-            'test': './data/socialiqa/triples/test.triples.pk',
-        },
-    },
     'obqa': {
         'statement': {
             'train': './data/obqa/statement/train.statement.jsonl',
@@ -300,8 +161,6 @@ output_paths = {
             'test': './data/obqa/triples/test.triples.pk',
         },
     },
-    'hswag': {},
-    'anli': {},
 }
 
 
@@ -313,10 +172,43 @@ def main():
     parser.add_argument('-p', '--nprocs', type=int, default=cpu_count(), help='number of processes to use')
     parser.add_argument('--seed', type=int, default=0, help='random seed')
     parser.add_argument('--debug', action='store_true', help='enable debug mode')
+    parser.add_argument('--kb', type=str, default="conceptnet", help='Name of the knowledge base')
+    parser.add_argument('--min_path_length', type=int, default=2, help="The minimum length of a path")
+    parser.add_argument('--max_path_length', type=int, default=5, help="The maximum length of a path")
+    parser.add_argument('--max_num_paths', type=int, default=100, help="The maximum number of paths to consider")
 
     args = parser.parse_args()
     if args.debug:
         raise NotImplementedError()
+
+    name_location = "_" + str(args.min_path_length) + "_" + str(args.max_path_length) + "_" + str(args.max_num_paths)
+
+    to_process = [input_paths]
+    while to_process:
+        current = to_process.pop()
+        for key, value in current.items():
+            if type(value) == dict:
+                to_process.append(value)
+            elif type(value) == str:
+                current[key] = value.replace("/cpnet/", "/" + args.kb + "/").replace("/csqa/", "/csqa_" + args.kb + "/").replace("/obqa/", "/obqa_" + args.kb + "/")\
+                        .replace("/paths/", "/paths" + name_location + "/").replace("/graph/", "/graph" + name_location + "/").replace("/triples/", "/triples" + name_location + "/")\
+                        .replace("glove.transe", "glove.transe." + args.kb)
+
+
+    to_process = [output_paths]
+    while to_process:
+        current = to_process.pop()
+        for key, value in current.items():
+            if type(value) == dict:
+                to_process.append(value)
+            elif type(value) == str:
+                current[key] = value.replace("/cpnet/", "/" + args.kb + "/").replace("/csqa/", "/csqa_" + args.kb + "/").replace("/obqa/", "/obqa_" + args.kb + "/")\
+                        .replace("/paths/", "/paths" + name_location + "/").replace("/graph/", "/graph" + name_location + "/").replace("/triples/", "/triples" + name_location + "/")
+                directory = "/".join(current[key].split("/")[:-1])
+                try:
+                    os.makedirs(directory)
+                except FileExistsError:
+                    pass
 
     routines = {
         'common': [
@@ -332,190 +224,62 @@ def main():
             {'func': create_matcher_patterns, 'args': (output_paths['cpnet']['vocab'], output_paths['cpnet']['patterns'])},
         ],
         'csqa': [
-            {'func': convert_to_entailment, 'args': (input_paths['csqa']['train'], output_paths['csqa']['statement']['train'])},
-            {'func': convert_to_entailment, 'args': (input_paths['csqa']['dev'], output_paths['csqa']['statement']['dev'])},
-            {'func': convert_to_entailment, 'args': (input_paths['csqa']['test'], output_paths['csqa']['statement']['test'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['csqa']['statement']['train'], output_paths['csqa']['tokenized']['train'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['csqa']['statement']['dev'], output_paths['csqa']['tokenized']['dev'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['csqa']['statement']['test'], output_paths['csqa']['tokenized']['test'])},
-            {'func': make_word_vocab, 'args': ((output_paths['csqa']['statement']['train'],), output_paths['csqa']['statement']['vocab'])},
-            {'func': ground, 'args': (output_paths['csqa']['statement']['train'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['csqa']['grounded']['train'], args.nprocs)},
-            {'func': ground, 'args': (output_paths['csqa']['statement']['dev'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['csqa']['grounded']['dev'], args.nprocs)},
-            {'func': ground, 'args': (output_paths['csqa']['statement']['test'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['csqa']['grounded']['test'], args.nprocs)},
-            {'func': find_paths, 'args': (output_paths['csqa']['grounded']['train'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['raw-train'], args.nprocs, args.seed)},
-            {'func': find_paths, 'args': (output_paths['csqa']['grounded']['dev'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['raw-dev'], args.nprocs, args.seed)},
-            {'func': find_paths, 'args': (output_paths['csqa']['grounded']['test'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['raw-test'], args.nprocs, args.seed)},
-            {'func': score_paths, 'args': (output_paths['csqa']['paths']['raw-train'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['csqa']['paths']['scores-train'], args.nprocs)},
-            {'func': score_paths, 'args': (output_paths['csqa']['paths']['raw-dev'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['csqa']['paths']['scores-dev'], args.nprocs)},
-            {'func': score_paths, 'args': (output_paths['csqa']['paths']['raw-test'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['csqa']['paths']['scores-test'], args.nprocs)},
-            {'func': prune_paths, 'args': (output_paths['csqa']['paths']['raw-train'], output_paths['csqa']['paths']['scores-train'],
-                                           output_paths['csqa']['paths']['pruned-train'], args.path_prune_threshold)},
-            {'func': prune_paths, 'args': (output_paths['csqa']['paths']['raw-dev'], output_paths['csqa']['paths']['scores-dev'],
-                                           output_paths['csqa']['paths']['pruned-dev'], args.path_prune_threshold)},
-            {'func': prune_paths, 'args': (output_paths['csqa']['paths']['raw-test'], output_paths['csqa']['paths']['scores-test'],
-                                           output_paths['csqa']['paths']['pruned-test'], args.path_prune_threshold)},
-            {'func': generate_graph, 'args': (output_paths['csqa']['grounded']['train'], output_paths['csqa']['paths']['pruned-train'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['csqa']['graph']['train'])},
-            {'func': generate_graph, 'args': (output_paths['csqa']['grounded']['dev'], output_paths['csqa']['paths']['pruned-dev'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['csqa']['graph']['dev'])},
-            {'func': generate_graph, 'args': (output_paths['csqa']['grounded']['test'], output_paths['csqa']['paths']['pruned-test'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['csqa']['graph']['test'])},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['csqa']['grounded']['train'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['csqa']['graph']['adj-train'], args.nprocs)},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['csqa']['grounded']['dev'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['csqa']['graph']['adj-dev'], args.nprocs)},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['csqa']['grounded']['test'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['csqa']['graph']['adj-test'], args.nprocs)},
-            {'func': generate_triples_from_adj, 'args': (output_paths['csqa']['graph']['adj-train'], output_paths['csqa']['grounded']['train'],
-                                                         output_paths['cpnet']['vocab'], output_paths['csqa']['triple']['train'])},
-            {'func': generate_triples_from_adj, 'args': (output_paths['csqa']['graph']['adj-dev'], output_paths['csqa']['grounded']['dev'],
-                                                         output_paths['cpnet']['vocab'], output_paths['csqa']['triple']['dev'])},
-            {'func': generate_triples_from_adj, 'args': (output_paths['csqa']['graph']['adj-test'], output_paths['csqa']['grounded']['test'],
-                                                         output_paths['cpnet']['vocab'], output_paths['csqa']['triple']['test'])},
-            {'func': generate_path_and_graph_from_adj, 'args': (output_paths['csqa']['graph']['adj-train'], output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['adj-train'], output_paths['csqa']['graph']['nxg-from-adj-train'], args.nprocs)},
+             {'func': convert_to_entailment, 'args': (input_paths['csqa']['train'], output_paths['csqa']['statement']['train'])},
+             {'func': convert_to_entailment, 'args': (input_paths['csqa']['dev'], output_paths['csqa']['statement']['dev'])},
+             {'func': convert_to_entailment, 'args': (input_paths['csqa']['test'], output_paths['csqa']['statement']['test'])},
+             {'func': tokenize_statement_file, 'args': (output_paths['csqa']['statement']['train'], output_paths['csqa']['tokenized']['train'])},
+             {'func': tokenize_statement_file, 'args': (output_paths['csqa']['statement']['dev'], output_paths['csqa']['tokenized']['dev'])},
+             {'func': tokenize_statement_file, 'args': (output_paths['csqa']['statement']['test'], output_paths['csqa']['tokenized']['test'])},
+             {'func': make_word_vocab, 'args': ((output_paths['csqa']['statement']['train'],), output_paths['csqa']['statement']['vocab'])},
+             {'func': ground, 'args': (output_paths['csqa']['statement']['train'], output_paths['cpnet']['vocab'],
+                                       output_paths['cpnet']['patterns'], output_paths['csqa']['grounded']['train'], args.nprocs)},
+             {'func': ground, 'args': (output_paths['csqa']['statement']['dev'], output_paths['cpnet']['vocab'],
+                                       output_paths['cpnet']['patterns'], output_paths['csqa']['grounded']['dev'], args.nprocs)},
+             {'func': ground, 'args': (output_paths['csqa']['statement']['test'], output_paths['cpnet']['vocab'],
+                                       output_paths['cpnet']['patterns'], output_paths['csqa']['grounded']['test'], args.nprocs)},
+             {'func': find_paths, 'args': (output_paths['csqa']['grounded']['train'], output_paths['cpnet']['vocab'],
+                                           output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['raw-train'], args.nprocs, args.seed, args.min_path_length, args.max_path_length, args.max_num_paths)},
+             {'func': find_paths, 'args': (output_paths['csqa']['grounded']['dev'], output_paths['cpnet']['vocab'],
+                                           output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['raw-dev'], args.nprocs, args.seed, args.min_path_length, args.max_path_length, args.max_num_paths)},
+             {'func': find_paths, 'args': (output_paths['csqa']['grounded']['test'], output_paths['cpnet']['vocab'],
+                                           output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['raw-test'], args.nprocs, args.seed, args.min_path_length, args.max_path_length, args.max_num_paths)},
+             {'func': score_paths, 'args': (output_paths['csqa']['paths']['raw-train'], input_paths['transe']['ent'], input_paths['transe']['rel'],
+                                            output_paths['cpnet']['vocab'], output_paths['csqa']['paths']['scores-train'], args.nprocs)},
+             {'func': score_paths, 'args': (output_paths['csqa']['paths']['raw-dev'], input_paths['transe']['ent'], input_paths['transe']['rel'],
+                                            output_paths['cpnet']['vocab'], output_paths['csqa']['paths']['scores-dev'], args.nprocs)},
+             {'func': score_paths, 'args': (output_paths['csqa']['paths']['raw-test'], input_paths['transe']['ent'], input_paths['transe']['rel'],
+                                            output_paths['cpnet']['vocab'], output_paths['csqa']['paths']['scores-test'], args.nprocs)},
+             {'func': prune_paths, 'args': (output_paths['csqa']['paths']['raw-train'], output_paths['csqa']['paths']['scores-train'],
+                                            output_paths['csqa']['paths']['pruned-train'], args.path_prune_threshold)},
+             {'func': prune_paths, 'args': (output_paths['csqa']['paths']['raw-dev'], output_paths['csqa']['paths']['scores-dev'],
+                                            output_paths['csqa']['paths']['pruned-dev'], args.path_prune_threshold)},
+             {'func': prune_paths, 'args': (output_paths['csqa']['paths']['raw-test'], output_paths['csqa']['paths']['scores-test'],
+                                            output_paths['csqa']['paths']['pruned-test'], args.path_prune_threshold)},
+             {'func': generate_graph, 'args': (output_paths['csqa']['grounded']['train'], output_paths['csqa']['paths']['pruned-train'],
+                                               output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
+                                               output_paths['csqa']['graph']['train'])},
+             {'func': generate_graph, 'args': (output_paths['csqa']['grounded']['dev'], output_paths['csqa']['paths']['pruned-dev'],
+                                               output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
+                                               output_paths['csqa']['graph']['dev'])},
+             {'func': generate_graph, 'args': (output_paths['csqa']['grounded']['test'], output_paths['csqa']['paths']['pruned-test'],
+                                               output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
+                                               output_paths['csqa']['graph']['test'])},
+             {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['csqa']['grounded']['train'], output_paths['cpnet']['pruned-graph'],
+                                                                         output_paths['cpnet']['vocab'], output_paths['csqa']['graph']['adj-train'], args.nprocs)},
+             {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['csqa']['grounded']['dev'], output_paths['cpnet']['pruned-graph'],
+                                                                         output_paths['cpnet']['vocab'], output_paths['csqa']['graph']['adj-dev'], args.nprocs)},
+             {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['csqa']['grounded']['test'], output_paths['cpnet']['pruned-graph'],
+                                                                         output_paths['cpnet']['vocab'], output_paths['csqa']['graph']['adj-test'], args.nprocs)},
+             {'func': generate_triples_from_adj, 'args': (output_paths['csqa']['graph']['adj-train'], output_paths['csqa']['grounded']['train'],
+                                                          output_paths['cpnet']['vocab'], output_paths['csqa']['triple']['train'])},
+             {'func': generate_triples_from_adj, 'args': (output_paths['csqa']['graph']['adj-dev'], output_paths['csqa']['grounded']['dev'],
+                                                          output_paths['cpnet']['vocab'], output_paths['csqa']['triple']['dev'])},
+             {'func': generate_triples_from_adj, 'args': (output_paths['csqa']['graph']['adj-test'], output_paths['csqa']['grounded']['test'],
+                                                          output_paths['cpnet']['vocab'], output_paths['csqa']['triple']['test'])},
+             {'func': generate_path_and_graph_from_adj, 'args': (output_paths['csqa']['graph']['adj-train'], output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['adj-train'], output_paths['csqa']['graph']['nxg-from-adj-train'], args.nprocs)},
             {'func': generate_path_and_graph_from_adj, 'args': (output_paths['csqa']['graph']['adj-dev'], output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['adj-dev'], output_paths['csqa']['graph']['nxg-from-adj-dev'], args.nprocs)},
             {'func': generate_path_and_graph_from_adj, 'args': (output_paths['csqa']['graph']['adj-test'], output_paths['cpnet']['pruned-graph'], output_paths['csqa']['paths']['adj-test'], output_paths['csqa']['graph']['nxg-from-adj-test'], args.nprocs)},
         ],
-
-        'scitail': [
-            {'func': convert_to_scitail_statement, 'args': (input_paths['scitail']['train'], output_paths['scitail']['statement']['train'])},
-            {'func': convert_to_scitail_statement, 'args': (input_paths['scitail']['dev'], output_paths['scitail']['statement']['dev'])},
-            {'func': convert_to_scitail_statement, 'args': (input_paths['scitail']['test'], output_paths['scitail']['statement']['test'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['scitail']['statement']['train'], output_paths['scitail']['tokenized']['train'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['scitail']['statement']['dev'], output_paths['scitail']['tokenized']['dev'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['scitail']['statement']['test'], output_paths['scitail']['tokenized']['test'])},
-            {'func': make_word_vocab, 'args': ((output_paths['scitail']['statement']['train'],), output_paths['scitail']['statement']['vocab'])},
-            {'func': ground, 'args': (output_paths['scitail']['statement']['train'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['scitail']['grounded']['train'], args.nprocs)},
-            {'func': ground, 'args': (output_paths['scitail']['statement']['dev'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['scitail']['grounded']['dev'], args.nprocs)},
-            {'func': ground, 'args': (output_paths['scitail']['statement']['test'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['scitail']['grounded']['test'], args.nprocs)},
-            {'func': find_paths, 'args': (output_paths['scitail']['grounded']['train'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['scitail']['paths']['raw-train'], args.nprocs, args.seed)},
-            {'func': find_paths, 'args': (output_paths['scitail']['grounded']['dev'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['scitail']['paths']['raw-dev'], args.nprocs, args.seed)},
-            {'func': find_paths, 'args': (output_paths['scitail']['grounded']['test'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['scitail']['paths']['raw-test'], args.nprocs, args.seed)},
-            {'func': score_paths, 'args': (output_paths['scitail']['paths']['raw-train'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['scitail']['paths']['scores-train'], args.nprocs)},
-            {'func': score_paths, 'args': (output_paths['scitail']['paths']['raw-dev'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['scitail']['paths']['scores-dev'], args.nprocs)},
-            {'func': score_paths, 'args': (output_paths['scitail']['paths']['raw-test'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['scitail']['paths']['scores-test'], args.nprocs)},
-            {'func': prune_paths, 'args': (output_paths['scitail']['paths']['raw-train'], output_paths['scitail']['paths']['scores-train'],
-                                           output_paths['scitail']['paths']['pruned-train'], args.path_prune_threshold)},
-            {'func': prune_paths, 'args': (output_paths['scitail']['paths']['raw-dev'], output_paths['scitail']['paths']['scores-dev'],
-                                           output_paths['scitail']['paths']['pruned-dev'], args.path_prune_threshold)},
-            {'func': prune_paths, 'args': (output_paths['scitail']['paths']['raw-test'], output_paths['scitail']['paths']['scores-test'],
-                                           output_paths['scitail']['paths']['pruned-test'], args.path_prune_threshold)},
-            {'func': generate_graph, 'args': (output_paths['scitail']['grounded']['train'], output_paths['scitail']['paths']['pruned-train'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['scitail']['graph']['train'])},
-            {'func': generate_graph, 'args': (output_paths['scitail']['grounded']['dev'], output_paths['scitail']['paths']['pruned-dev'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['scitail']['graph']['dev'])},
-            {'func': generate_graph, 'args': (output_paths['scitail']['grounded']['test'], output_paths['scitail']['paths']['pruned-test'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['scitail']['graph']['test'])},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['scitail']['grounded']['train'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['scitail']['graph']['adj-train'], args.nprocs)},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['scitail']['grounded']['dev'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['scitail']['graph']['adj-dev'], args.nprocs)},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['scitail']['grounded']['test'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['scitail']['graph']['adj-test'], args.nprocs)},
-        ],
-
-        'phys': [
-            {'func': convert_to_phys_statement,
-             'args': (input_paths['phys']['train'], input_paths['phys']['train-label'], output_paths['phys']['statement']['train'], output_paths['phys']['statement']['train-fairseq'])},
-            {'func': convert_to_phys_statement,
-             'args': (input_paths['phys']['dev'], input_paths['phys']['dev-label'], output_paths['phys']['statement']['dev'], output_paths['phys']['statement']['dev-fairseq'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['phys']['statement']['train'], output_paths['phys']['tokenized']['train'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['phys']['statement']['dev'], output_paths['phys']['tokenized']['dev'])},
-            {'func': make_word_vocab, 'args': ((output_paths['phys']['statement']['train'],), output_paths['phys']['statement']['vocab'])},
-            {'func': ground, 'args': (output_paths['phys']['statement']['train'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['phys']['grounded']['train'], args.nprocs)},
-            {'func': ground, 'args': (output_paths['phys']['statement']['dev'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['phys']['grounded']['dev'], args.nprocs)},
-            {'func': find_paths, 'args': (output_paths['phys']['grounded']['train'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['phys']['paths']['raw-train'], args.nprocs, args.seed)},
-            {'func': find_paths, 'args': (output_paths['phys']['grounded']['dev'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['phys']['paths']['raw-dev'], args.nprocs, args.seed)},
-            {'func': score_paths, 'args': (output_paths['phys']['paths']['raw-train'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['phys']['paths']['scores-train'], args.nprocs)},
-            {'func': score_paths, 'args': (output_paths['phys']['paths']['raw-dev'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['phys']['paths']['scores-dev'], args.nprocs)},
-            {'func': prune_paths, 'args': (output_paths['phys']['paths']['raw-train'], output_paths['phys']['paths']['scores-train'],
-                                           output_paths['phys']['paths']['pruned-train'], args.path_prune_threshold)},
-            {'func': prune_paths, 'args': (output_paths['phys']['paths']['raw-dev'], output_paths['phys']['paths']['scores-dev'],
-                                           output_paths['phys']['paths']['pruned-dev'], args.path_prune_threshold)},
-            {'func': generate_graph, 'args': (output_paths['phys']['grounded']['train'], output_paths['phys']['paths']['pruned-train'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['phys']['graph']['train'])},
-            {'func': generate_graph, 'args': (output_paths['phys']['grounded']['dev'], output_paths['phys']['paths']['pruned-dev'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['phys']['graph']['dev'])},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['phys']['grounded']['train'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['phys']['graph']['adj-train'], args.nprocs)},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['phys']['grounded']['dev'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['phys']['graph']['adj-dev'], args.nprocs)},
-        ],
-
-        'socialiqa': [
-            {'func': convert_to_socialiqa_statement, 'args': (
-                input_paths['socialiqa']['train'], input_paths['socialiqa']['train-label'], output_paths['socialiqa']['statement']['train'], output_paths['socialiqa']['statement']['train-fairseq'])},
-            {'func': convert_to_socialiqa_statement,
-             'args': (input_paths['socialiqa']['dev'], input_paths['socialiqa']['dev-label'], output_paths['socialiqa']['statement']['dev'], output_paths['socialiqa']['statement']['dev-fairseq'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['socialiqa']['statement']['train'], output_paths['socialiqa']['tokenized']['train'])},
-            {'func': tokenize_statement_file, 'args': (output_paths['socialiqa']['statement']['dev'], output_paths['socialiqa']['tokenized']['dev'])},
-            {'func': make_word_vocab, 'args': ((output_paths['socialiqa']['statement']['train'],), output_paths['socialiqa']['statement']['vocab'])},
-            {'func': ground, 'args': (output_paths['socialiqa']['statement']['train'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['socialiqa']['grounded']['train'], args.nprocs)},
-            {'func': ground, 'args': (output_paths['socialiqa']['statement']['dev'], output_paths['cpnet']['vocab'],
-                                      output_paths['cpnet']['patterns'], output_paths['socialiqa']['grounded']['dev'], args.nprocs)},
-            {'func': find_paths, 'args': (output_paths['socialiqa']['grounded']['train'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['socialiqa']['paths']['raw-train'], args.nprocs, args.seed)},
-            {'func': find_paths, 'args': (output_paths['socialiqa']['grounded']['dev'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['socialiqa']['paths']['raw-dev'], args.nprocs, args.seed)},
-            {'func': score_paths, 'args': (output_paths['socialiqa']['paths']['raw-train'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['socialiqa']['paths']['scores-train'], args.nprocs)},
-            {'func': score_paths, 'args': (output_paths['socialiqa']['paths']['raw-dev'], input_paths['transe']['ent'], input_paths['transe']['rel'],
-                                           output_paths['cpnet']['vocab'], output_paths['socialiqa']['paths']['scores-dev'], args.nprocs)},
-            {'func': prune_paths, 'args': (output_paths['socialiqa']['paths']['raw-train'], output_paths['socialiqa']['paths']['scores-train'],
-                                           output_paths['socialiqa']['paths']['pruned-train'], args.path_prune_threshold)},
-            {'func': prune_paths, 'args': (output_paths['socialiqa']['paths']['raw-dev'], output_paths['socialiqa']['paths']['scores-dev'],
-                                           output_paths['socialiqa']['paths']['pruned-dev'], args.path_prune_threshold)},
-            {'func': generate_graph, 'args': (output_paths['socialiqa']['grounded']['train'], output_paths['socialiqa']['paths']['pruned-train'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['socialiqa']['graph']['train'])},
-            {'func': generate_graph, 'args': (output_paths['socialiqa']['grounded']['dev'], output_paths['socialiqa']['paths']['pruned-dev'],
-                                              output_paths['cpnet']['vocab'], output_paths['cpnet']['pruned-graph'],
-                                              output_paths['socialiqa']['graph']['dev'])},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['socialiqa']['grounded']['train'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['socialiqa']['graph']['adj-train'], args.nprocs)},
-            {'func': generate_adj_data_from_grounded_concepts, 'args': (output_paths['socialiqa']['grounded']['dev'], output_paths['cpnet']['pruned-graph'],
-                                                                        output_paths['cpnet']['vocab'], output_paths['socialiqa']['graph']['adj-dev'], args.nprocs)},
-            {'func': generate_triples_from_adj, 'args': (output_paths['socialiqa']['graph']['adj-train'], output_paths['socialiqa']['grounded']['train'],
-                                                         output_paths['cpnet']['vocab'], output_paths['socialiqa']['triple']['train'])},
-            {'func': generate_triples_from_adj, 'args': (output_paths['socialiqa']['graph']['adj-dev'], output_paths['socialiqa']['grounded']['dev'],
-                                                         output_paths['cpnet']['vocab'], output_paths['socialiqa']['triple']['dev'])},
-            {'func': generate_path_and_graph_from_adj, 'args': (output_paths['socialiqa']['graph']['adj-train'], output_paths['cpnet']['pruned-graph'], output_paths['socialiqa']['paths']['adj-train'], output_paths['socialiqa']['graph']['nxg-from-adj-train'], args.nprocs)},
-            {'func': generate_path_and_graph_from_adj, 'args': (output_paths['socialiqa']['graph']['adj-dev'], output_paths['cpnet']['pruned-graph'], output_paths['socialiqa']['paths']['adj-dev'], output_paths['socialiqa']['graph']['nxg-from-adj-dev'], args.nprocs)},
-        ],
-
         'obqa': [
             {'func': convert_to_obqa_statement, 'args': (input_paths['obqa']['train'], output_paths['obqa']['statement']['train'], output_paths['obqa']['statement']['train-fairseq'])},
             {'func': convert_to_obqa_statement, 'args': (input_paths['obqa']['dev'], output_paths['obqa']['statement']['dev'], output_paths['obqa']['statement']['dev-fairseq'])},
@@ -531,11 +295,11 @@ def main():
             {'func': ground, 'args': (output_paths['obqa']['statement']['test'], output_paths['cpnet']['vocab'],
                                       output_paths['cpnet']['patterns'], output_paths['obqa']['grounded']['test'], args.nprocs)},
             {'func': find_paths, 'args': (output_paths['obqa']['grounded']['train'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['raw-train'], args.nprocs, args.seed)},
+                                          output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['raw-train'], args.nprocs, args.seed, args.min_path_length, args.max_path_length, args.max_num_paths)},
             {'func': find_paths, 'args': (output_paths['obqa']['grounded']['dev'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['raw-dev'], args.nprocs, args.seed)},
+                                          output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['raw-dev'], args.nprocs, args.seed, args.min_path_length, args.max_path_length, args.max_num_paths)},
             {'func': find_paths, 'args': (output_paths['obqa']['grounded']['test'], output_paths['cpnet']['vocab'],
-                                          output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['raw-test'], args.nprocs, args.seed)},
+                                          output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['raw-test'], args.nprocs, args.seed, args.min_path_length, args.max_path_length, args.max_num_paths)},
             {'func': score_paths, 'args': (output_paths['obqa']['paths']['raw-train'], input_paths['transe']['ent'], input_paths['transe']['rel'],
                                            output_paths['cpnet']['vocab'], output_paths['obqa']['paths']['scores-train'], args.nprocs)},
             {'func': score_paths, 'args': (output_paths['obqa']['paths']['raw-dev'], input_paths['transe']['ent'], input_paths['transe']['rel'],
@@ -572,31 +336,6 @@ def main():
             {'func': generate_path_and_graph_from_adj, 'args': (output_paths['obqa']['graph']['adj-train'], output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['adj-train'], output_paths['obqa']['graph']['nxg-from-adj-train'], args.nprocs)},
             {'func': generate_path_and_graph_from_adj, 'args': (output_paths['obqa']['graph']['adj-dev'], output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['adj-dev'], output_paths['obqa']['graph']['nxg-from-adj-dev'], args.nprocs)},
             {'func': generate_path_and_graph_from_adj, 'args': (output_paths['obqa']['graph']['adj-test'], output_paths['cpnet']['pruned-graph'], output_paths['obqa']['paths']['adj-test'], output_paths['obqa']['graph']['nxg-from-adj-test'], args.nprocs)},
-        ],
-
-        'exp': [
-            {'func': convert_to_entailment,
-             'args': (input_paths['csqa']['train'], output_paths['csqa']['statement-with-ans-pos']['train'], True)},
-            {'func': convert_to_entailment,
-             'args': (input_paths['csqa']['dev'], output_paths['csqa']['statement-with-ans-pos']['dev'], True)},
-            {'func': convert_to_entailment,
-             'args': (input_paths['csqa']['test'], output_paths['csqa']['statement-with-ans-pos']['test'], True)},
-        ],
-
-        'hswag': [
-            # TODO
-        ],
-
-        'anli': [
-            # TODO
-        ],
-
-        'make_word_vocab': [
-            {'func': make_word_vocab, 'args': ((output_paths['csqa']['statement']['train'],), output_paths['csqa']['statement']['vocab'])},
-            {'func': make_word_vocab, 'args': ((output_paths['scitail']['statement']['train'],), output_paths['scitail']['statement']['vocab'])},
-            {'func': make_word_vocab, 'args': ((output_paths['phys']['statement']['train'],), output_paths['phys']['statement']['vocab'])},
-            {'func': make_word_vocab, 'args': ((output_paths['socialiqa']['statement']['train'],), output_paths['socialiqa']['statement']['vocab'])},
-            {'func': make_word_vocab, 'args': ((output_paths['obqa']['statement']['train'],), output_paths['obqa']['statement']['vocab'])},
         ],
     }
 

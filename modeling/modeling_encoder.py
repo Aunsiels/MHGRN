@@ -59,9 +59,9 @@ class LSTMTextEncoder(nn.Module):
         hidden_states = self.input_dropout(self.emb(inputs))
         all_hidden_states = [hidden_states]
         for l, (rnn, hid_dp) in enumerate(zip(self.rnns, self.hidden_dropout)):
-            # hidden_states = pack_padded_sequence(hidden_states, lengths, batch_first=True, enforce_sorted=False)
+            hidden_states = pack_padded_sequence(hidden_states, lengths, batch_first=True, enforce_sorted=False)
             hidden_states, _ = rnn(hidden_states)
-            # hidden_states, _ = pad_packed_sequence(hidden_states, batch_first=True, total_length=seq_len)
+            hidden_states, _ = pad_packed_sequence(hidden_states, batch_first=True, total_length=seq_len)
             all_hidden_states.append(hidden_states)
             if l != self.num_layers - 1:
                 hidden_states = hid_dp(hidden_states)
@@ -78,7 +78,7 @@ class TextEncoder(nn.Module):
 
     def __init__(self, model_name, output_token_states=False, from_checkpoint=None, **kwargs):
         super().__init__()
-        self.model_type = MODEL_NAME_TO_CLASS[model_name]
+        self.model_type = MODEL_NAME_TO_CLASS.get(model_name, "bert")
         self.output_token_states = output_token_states
         assert not self.output_token_states or self.model_type in ('bert', 'roberta',)
 

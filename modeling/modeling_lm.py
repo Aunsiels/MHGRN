@@ -33,7 +33,7 @@ class LMDataLoader(object):
         self.device = device
         self.is_inhouse = is_inhouse
 
-        model_type = MODEL_NAME_TO_CLASS[model_name]
+        model_type = MODEL_NAME_TO_CLASS.get(model_name, "bert")
         self.train_qids, self.train_labels, *self.train_data = load_input_tensors(train_statement_path, model_type, model_name, max_seq_length, format=format)
         self.dev_qids, self.dev_labels, *self.dev_data = load_input_tensors(dev_statement_path, model_type, model_name, max_seq_length, format=format)
         assert all(len(self.train_qids) == x.size(0) for x in [self.train_labels] + self.train_data)
@@ -43,7 +43,7 @@ class LMDataLoader(object):
             assert all(len(self.test_qids) == x.size(0) for x in [self.test_labels] + self.test_data)
 
         if self.is_inhouse:
-            with open(inhouse_train_qids_path, 'r', encoding='utf-8') as fin:
+            with open(inhouse_train_qids_path, 'r') as fin:
                 inhouse_qids = set(line.strip() for line in fin)
             self.inhouse_train_indexes = torch.tensor([i for i, qid in enumerate(self.train_qids) if qid in inhouse_qids])
             self.inhouse_test_indexes = torch.tensor([i for i, qid in enumerate(self.train_qids) if qid not in inhouse_qids])

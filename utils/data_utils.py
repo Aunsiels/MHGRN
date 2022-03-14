@@ -7,7 +7,9 @@ from transformers import (OpenAIGPTTokenizer, BertTokenizer, XLNetTokenizer, Rob
 
 from utils.tokenization_utils import *
 
+
 GPT_SPECIAL_TOKENS = ['_start_', '_delimiter_', '_classify_']
+
 
 
 class BatchGenerator(object):
@@ -236,7 +238,7 @@ class MultiGPUNxgDataBatchGenerator(object):
 
 
 def load_2hop_relational_paths_old(input_jsonl_path, max_tuple_num, num_choice=None):
-    with open(input_jsonl_path, 'r', encoding='utf-8') as fin:
+    with open(input_jsonl_path, 'r') as fin:
         rpath_data = [json.loads(line) for line in fin]
     n_samples = len(rpath_data)
     qa_data = torch.zeros((n_samples, max_tuple_num, 2), dtype=torch.long)
@@ -270,7 +272,7 @@ def load_2hop_relational_paths_old(input_jsonl_path, max_tuple_num, num_choice=N
 
 def load_2hop_relational_paths(rpath_jsonl_path, cpt_jsonl_path=None, emb_pk_path=None,
                                max_tuple_num=200, num_choice=None, node_feature_type=None):
-    with open(rpath_jsonl_path, 'r', encoding='utf-8') as fin:
+    with open(rpath_jsonl_path, 'r') as fin:
         rpath_data = [json.loads(line) for line in fin]
 
     with open(cpt_jsonl_path, 'rb') as fin:
@@ -409,8 +411,13 @@ def load_adj_data(adj_pk_path, max_node_num, num_choice, emb_pk_path=None):
         ij = torch.tensor(adj.row, dtype=torch.int64)
         k = torch.tensor(adj.col, dtype=torch.int64)
         n_node = adj.shape[1]
-        half_n_rel = adj.shape[0] // n_node
-        i, j = ij // n_node, ij % n_node
+        if n_node != 0:
+            half_n_rel = adj.shape[0] // n_node
+            i, j = ij // n_node, ij % n_node
+        else:
+            #half_n_rel = adj.shape[0]
+            half_n_rel = 21
+            i, j = ij, ij
         mask = (j < max_node_num) & (k < max_node_num)
         i, j, k = i[mask], j[mask], k[mask]
         i, j, k = torch.cat((i, i + half_n_rel), 0), torch.cat((j, k), 0), torch.cat((k, j), 0)  # add inverse relations

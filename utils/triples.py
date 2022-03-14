@@ -46,7 +46,7 @@ def generate_triples_from_adj(adj_pk_path, mentioned_cpt_path, cpnet_vocab_path,
     if any(x is None for x in [concept2id, id2concept, relation2id, id2relation]):
         load_resources(cpnet_vocab_path)
 
-    with open(mentioned_cpt_path, 'r', encoding='utf-8') as fin:
+    with open(mentioned_cpt_path, 'r') as fin:
         data = [json.loads(line) for line in fin]
     mentioned_concepts = [([concept2id[ac] for ac in item["ac"]] + [concept2id[qc] for qc in item["qc"]]) for item in data]
 
@@ -63,8 +63,12 @@ def generate_triples_from_adj(adj_pk_path, mentioned_cpt_path, cpnet_vocab_path,
         ij = adj.row
         k = adj.col
         n_node = adj.shape[1]
-        n_rel = 2 * adj.shape[0] // n_node
-        i, j = ij // n_node, ij % n_node
+        if n_node != 0:
+            n_rel = 2 * adj.shape[0] // n_node
+            i, j = ij // n_node, ij % n_node
+        else:
+            n_rel = 2 * adj.shape[0]
+            i, j = ij, ij
 
         j = np.array([mapping[j[idx]] for idx in range(len(j))])
         k = np.array([mapping[k[idx]] for idx in range(len(k))])
@@ -114,7 +118,7 @@ def generate_triple_string_per_inst(triples):
     global id2concept, id2relation
     res = []
     for h, r, t in zip(*triples):
-        if r > 17:  # magic number
+        if r > len(merged_relations):  # magic number
             continue
         relation = id2relation[r]
         template = templates[relation]
@@ -141,7 +145,7 @@ def generate_triple_string(str_template_path, cpnet_vocab_path, triple_path, out
         load_templates(str_template_path=str_template_path)
     with open(triple_path, 'rb') as fin:
         triples, _ = pickle.load(fin)
-    with Pool(num_processes) as p, open(output_path, 'w', encoding='utf-8') as fout:
+    with Pool(num_processes) as p, open(output_path, 'w') as fout:
         for res in tqdm(p.imap(generate_triple_string_per_inst, triples), total=len(triples)):
             fout.write(json.dumps(res) + '\n')
 
